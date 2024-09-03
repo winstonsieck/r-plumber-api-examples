@@ -1,0 +1,46 @@
+---
+title: "Access the Plumber Hello World API"
+output:
+  html_document:
+    df_print: paged
+---
+
+Run this code on your local machine to pull data from the API (hosted on remote server)
+
+### Load Libraries
+
+```{r}
+
+library("httr")
+library("jsonlite")
+
+```
+
+### Access the hello world API
+
+```{r}
+
+# Read IP address from file for privacy
+ipv4 <- scan("../ipv4.txt", what="character")
+
+# Initialize the API Call
+call <- paste0("http://",ipv4,":8080/echo?msg=howdy!")
+call
+
+# Get result from API
+get_hello <- GET(url = call)
+
+# Get status of HTTP Call
+status_code(get_hello)
+
+# Converting content to text
+hello_text <- content(get_hello, "text", encoding = "UTF-8")
+hello_text
+
+# Parsing data in JSON
+hello_json <- fromJSON(hello_text, flatten = TRUE)
+hello_json
+
+
+```
+
