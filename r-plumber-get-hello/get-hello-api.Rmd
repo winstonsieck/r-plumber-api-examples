@@ -5,14 +5,16 @@ output:
     df_print: paged
 ---
 
-Run this code on your local machine to pull data from the API (hosted on remote server)
+Run this code on your local machine to pull data from the API (hosted on your remote server)
 
 ### Load Libraries
 
 ```{r}
 
-library("httr")
-library("jsonlite")
+library("httr2")
+
+# Read IP address from file for privacy
+ipv4 <- scan("../ipv4.txt", what="character")
 
 ```
 
@@ -20,26 +22,23 @@ library("jsonlite")
 
 ```{r}
 
-# Read IP address from file for privacy
-ipv4 <- scan("../ipv4.txt", what="character")
+# Initialize the API request
+link <- paste0("http://",ipv4,":8080/echo?msg=howdy!")
 
-# Initialize the API Call
-call <- paste0("http://",ipv4,":8080/echo?msg=howdy!")
-call
+req <- request(link)
 
 # Get result from API
-get_hello <- GET(url = call)
+resp <- req_perform(req)
 
-# Get status of HTTP Call
-status_code(get_hello)
+# Check status of HTTP Call
+resp |> resp_status()
 
-# Converting content to text
-hello_text <- content(get_hello, "text", encoding = "UTF-8")
-hello_text
+# Pull the body in list format
+msg_list <- resp |> resp_body_json()
+msg_list
 
-# Parsing data in JSON
-hello_json <- fromJSON(hello_text, flatten = TRUE)
-hello_json
+# Extract the value
+msg_list$msg[[1]]
 
 
 ```
