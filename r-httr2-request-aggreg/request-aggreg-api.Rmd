@@ -1,0 +1,71 @@
+---
+title: "Access the Plumber Aggregate API"
+output:
+  html_document:
+    df_print: paged
+---
+
+Run this code on your local machine to pull data from the API (hosted on your remote server)
+
+### Load Libraries
+
+```{r}
+
+library("httr2")
+library("jsonlite")
+
+# Read IP address from file for privacy
+ipv4 <- scan("../ipv4.txt", what="character")
+
+# read in input data file
+employee_data <- fromJSON(txt="input/employee_data.json")
+
+```
+
+### POST request to the aggregate API
+
+```{r}
+
+# Initialize the API request
+link <- paste0("http://",ipv4,":8080/employee-summary")
+
+req <- request(link)
+
+req <- req |> req_body_json(list(employee_json=employee_data))
+  
+# req |> req_dry_run()
+
+# Get result from API
+resp <- req_perform(req)
+
+# Check status of HTTP Call
+resp |> resp_status()
+
+# Pull the body as list
+msg <- resp |> resp_body_string()
+msg_list <- fromJSON(txt=msg)
+msg_list
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
