@@ -4,9 +4,6 @@ FROM rstudio/plumber
 # Make directory in the container
 RUN mkdir /home/r-env
 
-# Install R dependencies
-# RUN ["R", "-e", "install.packages('jsonlite')"]
-
 # Copy R script to the container
 COPY aggreg-api.R /home/r-env/aggreg-api.R
 

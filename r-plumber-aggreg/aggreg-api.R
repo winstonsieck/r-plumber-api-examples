@@ -1,4 +1,4 @@
-# library(jsonlite)
+library(plumber)
 
 
 #* @apiTitle Aggregate API
