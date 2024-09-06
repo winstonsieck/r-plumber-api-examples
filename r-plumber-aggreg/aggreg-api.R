@@ -1,7 +1,7 @@
 library(plumber)
 
 
-#* @apiTitle Aggregate API
+#* @apiTitle Aggregation API
 #* @apiDescription API summarizes input employee data
 
 

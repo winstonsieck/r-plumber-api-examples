@@ -1,11 +1,17 @@
 ---
-title: "Access the Plumber Aggregate API"
+title: "Access the Plumber Aggregation API"
 output:
   html_document:
     df_print: paged
 ---
 
-Run this code on your local machine to pull data from the API (hosted on your remote server)
+### Run this code on your local machine to pull data from the API 
+
+##### Note API is hosted on your remote server - to start it up:
+* cd r-plumber-aggreg
+* docker build -t r-plumber-aggreg .
+* docker run -p 8080:8000 r-plumber-aggreg
+
 
 ### Load Libraries
 
@@ -31,18 +37,18 @@ link <- paste0("http://",ipv4,":8080/employee-summary")
 
 req <- request(link)
 
-req <- req |> req_body_json(list(employee_json=employee_data))
+req <- req_body_json(req, list(employee_json=employee_data))
   
-# req |> req_dry_run()
+req_dry_run(req)
 
 # Get result from API
 resp <- req_perform(req)
 
 # Check status of HTTP Call
-resp |> resp_status()
+resp_status(resp)
 
 # Pull the body as list
-msg <- resp |> resp_body_string()
+msg <- resp_body_string(resp)
 msg_list <- fromJSON(txt=msg)
 msg_list
 
