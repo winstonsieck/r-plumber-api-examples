@@ -13,6 +13,7 @@ CMD ["/home/r-env/hello.R"]
 
 # to execute:
     # docker build -t r-plumber-hello .
-    # docker run -p 8080:8000 r-plumber-hello
-    # visit http://[ip address]:8080/echo
-    # visit http://[ip address]:8080/echo?msg=howdy
+    # docker run -p 8040:8000 r-plumber-hello
+    # visit http://[ip address]:8040/echo
+    # visit http://[ip address]:8040/echo?msg=howdy
+    # call from r-httr2-request-hello

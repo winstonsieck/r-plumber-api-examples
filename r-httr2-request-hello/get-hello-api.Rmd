@@ -5,7 +5,14 @@ output:
     df_print: paged
 ---
 
-Run this code on your local machine to pull data from the API (hosted on your remote server)
+### Run this code on your local machine to pull data from the API 
+
+##### Note API is hosted on your remote server - to start it up:
+* cd r-plumber-hello
+* docker build -t r-plumber-hello .
+* docker run -p 8040:8000 r-plumber-hello
+
+
 
 ### Load Libraries
 
@@ -18,12 +25,12 @@ ipv4 <- scan("../ipv4.txt", what="character")
 
 ```
 
-### Access the hello world API
+### GET request to the hello world API
 
 ```{r}
 
 # Initialize the API request
-link <- paste0("http://",ipv4,":8080/echo?msg=howdy!")
+link <- paste0("http://",ipv4,":8040/echo?msg=howdy!")
 
 req <- request(link)
 
@@ -31,10 +38,10 @@ req <- request(link)
 resp <- req_perform(req)
 
 # Check status of HTTP Call
-resp |> resp_status()
+resp_status(resp)
 
 # Pull the body in list format
-msg_list <- resp |> resp_body_json()
+msg_list <- resp_body_json(resp)
 msg_list
 
 # Extract the value
