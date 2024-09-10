@@ -2,9 +2,7 @@
 
 Create, run, and access APIs with these simple example R scripts
 
-Each example is associated with two folders: 1) A "plumber" folder to set up the API, and 2) An "httr2" folder to request info from the API.
-
-The "plumber" folders include example packages that build off of the [rstudio/plumber image](https://hub.docker.com/r/rstudio/plumber) on docker hub. To get started:
+Each example is associated with two folders: 1) A "plumber" folder to set up the API, and 2) An "httr2" folder to request info from the API. The "plumber" folders include example packages that build off of the [rstudio/plumber image](https://hub.docker.com/r/rstudio/plumber) on docker hub. To get started:
 
 -   log into a docker supported server with admin access (see below for one setup)
 
